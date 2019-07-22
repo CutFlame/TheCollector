@@ -6,8 +6,8 @@
 //  Copyright © 2019 Michael Holt. All rights reserved.
 //
 
-import XCTest
 @testable import TheCollector
+import XCTest
 
 class TheCollectorTests: XCTestCase {
 

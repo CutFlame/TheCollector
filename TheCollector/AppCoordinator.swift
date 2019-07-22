@@ -6,8 +6,8 @@
 //  Copyright © 2019 Michael Holt. All rights reserved.
 //
 
-import UIKit
 import ReactiveSwift
+import UIKit
 
 class AppCoordinator: Coordinator, CoordinatorProtocol {
     let window: UIWindow

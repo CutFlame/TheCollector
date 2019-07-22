@@ -6,9 +6,9 @@
 //  Copyright © 2019 Michael Holt. All rights reserved.
 //
 
-import UIKit
-import ReactiveSwift
 import ReactiveCocoa
+import ReactiveSwift
+import UIKit
 
 class CategoriesViewController: UITableViewController {
     let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
@@ -53,10 +53,10 @@ class CategoriesViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let category = viewModel.categories.value[indexPath.row]
-        let editAction = UIContextualAction(style: .normal, title: "Edit", handler: { [weak self] action, sourceView, completion in
+        let editAction = UIContextualAction(style: .normal, title: "Edit", handler: { [weak self] _, _, _ in
             self?.viewModel.editCategoryAction.apply(category).start()
         })
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete", handler: { [weak self] action, sourceView, completion in
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete", handler: { [weak self] _, _, completion in
             self?.viewModel.deleteCategoryAction.apply(category).start()
             let actionPerformed = true
             completion(actionPerformed)

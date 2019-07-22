@@ -14,5 +14,5 @@ protocol CoordinatorProtocol {
 }
 
 class Coordinator {
-    var child: CoordinatorProtocol? = nil
+    var child: CoordinatorProtocol?
 }
