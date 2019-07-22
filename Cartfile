@@ -1,0 +1,10 @@
+## These are in the list of Swift Source Compatibilty
+## https://swift.org/source-compatibility/#current-list-of-projects
+#github "Alamofire/Alamofire"
+#github "emaloney/CleanroomLogger"
+github "ReactiveCocoa/ReactiveCocoa"
+
+## These are not in the list and would be better removed/replaced
+#github "Swinject/Swinject"
+#github "elegantchaos/DictionaryCoding"
+github "realm/realm-cocoa"
