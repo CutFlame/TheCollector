@@ -57,9 +57,13 @@ class ItemsViewController: UITableViewController {
             self?.viewModel.editItemAction.apply(item).start()
         })
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete", handler: { [weak self] _, _, completion in
-            self?.viewModel.deleteItemAction.apply(item).start()
-            let actionPerformed = true
-            completion(actionPerformed)
+            self?.viewModel.deleteItemAction.apply(item).startWithResult({ _ in
+                let actionPerformed = true
+                completion(actionPerformed)
+                DispatchQueue.main.async {
+                    self?.viewModel.fetchAction.apply().start()
+                }
+            })
         })
         let config = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
         return config

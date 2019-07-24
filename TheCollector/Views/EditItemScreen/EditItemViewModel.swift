@@ -10,11 +10,11 @@ import ReactiveSwift
 
 class EditItemViewModel {
     private let database: DatabaseProtocol
-    let category: Category
+    let categoryID: UUID
     let item: Item?
-    init(category: Category, item: Item? = nil, database: DatabaseProtocol = Database.shared) {
+    init(categoryID: UUID, item: Item? = nil, database: DatabaseProtocol = Database.shared) {
         self.database = database
-        self.category = category
+        self.categoryID = categoryID
         self.item = item
         self.title.value = item?.title
         self.description.value = item?.description
@@ -34,20 +34,24 @@ class EditItemViewModel {
 
     lazy private(set) var saveAction = Action<Void, Void, Never>(enabledIf: formValid, execute: self.saveSignal)
     private func saveSignal() -> SignalProducer<Void, Never> {
-        let newItem = Item(
-            itemID: self.item?.itemID ?? UUID(),
-            title: self.title.value ?? "No Title",
-            description: self.description.value ?? "No Description",
-            rating: self.rating.value,
-            parentID: self.category.categoryID)
-        let newCategory = Category(
-            categoryID: self.category.categoryID,
-            name: self.category.name,
-            itemIDs: self.category.itemIDs + [newItem.itemID])
-        return SignalProducer.combineLatest(
-            database.save(category: newCategory),
-            database.save(item: newItem))
-            .map { _ in }
+        return database.getCategory(id: categoryID)
+            .flatMap(FlattenStrategy.concat) { category in
+                guard let category = category else { return SignalProducer(value: ()) }
+                let newItem = Item(
+                    itemID: self.item?.itemID ?? UUID(),
+                    title: self.title.value ?? "No Title",
+                    description: self.description.value ?? "No Description",
+                    rating: self.rating.value,
+                    parentID: self.categoryID)
+                let newCategory = Category(
+                    categoryID: category.categoryID,
+                    name: category.name,
+                    itemIDs: category.itemIDs + [newItem.itemID])
+                return SignalProducer.combineLatest(
+                    self.database.save(category: newCategory),
+                    self.database.save(item: newItem))
+                    .map { _ in }
+            }
     }
     let cancelAction = Action<Void, Void, Never>(execute: { SignalProducer(value: ()) })
 }

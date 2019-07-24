@@ -57,9 +57,13 @@ class CategoriesViewController: UITableViewController {
             self?.viewModel.editCategoryAction.apply(category).start()
         })
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete", handler: { [weak self] _, _, completion in
-            self?.viewModel.deleteCategoryAction.apply(category).start()
-            let actionPerformed = true
-            completion(actionPerformed)
+            self?.viewModel.deleteCategoryAction.apply(category).startWithResult({ _ in
+                let actionPerformed = true
+                completion(actionPerformed)
+                DispatchQueue.main.async {
+                    self?.viewModel.fetchAction.apply().start()
+                }
+            })
         })
         let config = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
         return config

@@ -64,21 +64,23 @@ class AppCoordinator: Coordinator, CoordinatorProtocol {
     func showItemListScreen(category: Category) {
         let viewModel = ItemsViewModel(category: category)
         viewModel.addItemAction.values.observeValues { [weak self] in
-            self?.showEditItemScreen(category: category)
+            self?.showEditItemScreen(categoryID: category.categoryID)
         }
         viewModel.editItemAction.values.observeValues { [weak self] item in
-            self?.showEditItemScreen(category: category, item: item)
+            self?.showEditItemScreen(categoryID: category.categoryID, item: item)
         }
-        viewModel.selectItemAction.values.observeValues { [weak self] _ in
+        viewModel.selectItemAction.values.observeValues { [weak self] item in
+            //Eventually could add a dedicated screen for just showing an item:
             //self?.showItemsScreen(item: item)
+            self?.showEditItemScreen(categoryID: category.categoryID, item: item)
         }
         let viewController = ItemsViewController()
         viewController.viewModel = viewModel
         navigationController.pushViewController(viewController, animated: true)
     }
 
-    func showEditItemScreen(category: Category, item: Item? = nil) {
-        let viewModel = EditItemViewModel(category: category, item: item)
+    func showEditItemScreen(categoryID: UUID, item: Item? = nil) {
+        let viewModel = EditItemViewModel(categoryID: categoryID, item: item)
         viewModel.saveAction.values.merge(with: viewModel.cancelAction.values)
             .observeValues { [weak self] in
                 self?.window.rootViewController?.dismiss(animated: true, completion: nil)
@@ -87,9 +89,5 @@ class AppCoordinator: Coordinator, CoordinatorProtocol {
         viewController.viewModel = viewModel
         let navController = UINavigationController(rootViewController: viewController)
         window.rootViewController?.present(navController, animated: true, completion: nil)
-    }
-
-    func showItemScreen(item: Item) {
-
     }
 }
