@@ -69,7 +69,7 @@ class AppCoordinator: Coordinator, CoordinatorProtocol {
         viewModel.editItemAction.values.observeValues { [weak self] item in
             self?.showEditItemScreen(category: category, item: item)
         }
-        viewModel.selectItemAction.values.observeValues { [weak self] item in
+        viewModel.selectItemAction.values.observeValues { [weak self] _ in
             //self?.showItemsScreen(item: item)
         }
         let viewController = ItemsViewController()
@@ -90,6 +90,6 @@ class AppCoordinator: Coordinator, CoordinatorProtocol {
     }
 
     func showItemScreen(item: Item) {
-        
+
     }
 }

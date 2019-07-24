@@ -6,9 +6,9 @@
 //  Copyright © 2019 Michael Holt. All rights reserved.
 //
 
-import UIKit
-import ReactiveSwift
 import ReactiveCocoa
+import ReactiveSwift
+import UIKit
 
 class ItemsViewController: UITableViewController {
     let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)

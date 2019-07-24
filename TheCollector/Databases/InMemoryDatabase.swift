@@ -40,7 +40,7 @@ class InMemoryDatabase: DatabaseProtocol {
     }
 
     func deleteCategory(id: UUID) -> SignalProducer<Void, Never> {
-        return SignalProducer({ [weak self] observer, lifetime in
+        return SignalProducer({ [weak self] observer, _ in
             //Cascade delete the items
             if let category = self?.categories[id] {
                 let itemIDs = category.itemIDs
@@ -61,7 +61,7 @@ class InMemoryDatabase: DatabaseProtocol {
     }
 
     func deleteAll() -> SignalProducer<Void, Never> {
-        return SignalProducer { [weak self] observer, lifetime in
+        return SignalProducer { [weak self] observer, _ in
             self?.items.removeAll()
             self?.categories.removeAll()
             observer.send(value: ())
