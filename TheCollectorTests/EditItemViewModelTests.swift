@@ -17,31 +17,29 @@ class EditItemViewModelTests: XCTestCase {
     override func setUp() {
         super.setUp()
         Database.shared = self.database
+        let category = Category.init(categoryID: categoryID, name: "Test Category", itemIDs: [])
+        try? database.save(category: category).first()?.get()
     }
 
     func testConstructor() {
-        let category = Category.init(categoryID: categoryID, name: "Test Category", itemIDs: [])
-        let instance = EditItemViewModel(category: category)
+        let instance = EditItemViewModel(categoryID: categoryID)
         XCTAssertNotNil(instance)
     }
 
     func testCannotInitiallySave() {
-        let category = Category.init(categoryID: categoryID, name: "Test Category", itemIDs: [])
-        let instance = EditItemViewModel(category: category)
+        let instance = EditItemViewModel(categoryID: categoryID)
         XCTAssert(instance.saveAction.isEnabled.value == false)
     }
 
     func testSaveIsEnabled() {
-        let category = Category.init(categoryID: categoryID, name: "Test Category", itemIDs: [])
-        let instance = EditItemViewModel(category: category)
+        let instance = EditItemViewModel(categoryID: categoryID)
         instance.title.value = "Test Title"
         instance.description.value = "Test Description"
         XCTAssert(instance.saveAction.isEnabled.value)
     }
     
     func testSaveNew() {
-        let category = Category.init(categoryID: categoryID, name: "Test Category", itemIDs: [])
-        let instance = EditItemViewModel(category: category)
+        let instance = EditItemViewModel(categoryID: categoryID)
         instance.title.value = "Test Title"
         instance.description.value = "Test Description"
         do {
@@ -52,9 +50,9 @@ class EditItemViewModelTests: XCTestCase {
         }
         let items = try? database.getItems(for: categoryID).first()?.get()
         XCTAssertNotNil(items)
-        XCTAssert(items?.count == 1)
+        XCTAssertEqual(items?.count, 1)
         let item = items?.first
-        XCTAssert(item?.title == "Test Title")
-        XCTAssert(item?.description == "Test Description")
+        XCTAssertEqual(item?.title, "Test Title")
+        XCTAssertEqual(item?.description, "Test Description")
     }
 }

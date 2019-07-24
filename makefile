@@ -28,7 +28,7 @@ help:
 	echo "xcode_check - select expected version of Xcode"
 	echo "Carthage - carthage bootstrap"
 	echo "update - carthage update"
-	ceho "clean - clean the build"
+	echo "clean - clean the build"
 	echo "test - run unit tests"
 
 # clean everything including Carthage
@@ -54,7 +54,7 @@ update: xcode_check
 
 .PHONY: clean
 clean:
-xcodebuild \
+	xcodebuild \
 	-project TheCollector.xcodeproj \
 	-scheme TheCollector \
 	-derivedDataPath derivedData \
