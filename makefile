@@ -28,10 +28,12 @@ help:
 	echo "xcode_check - select expected version of Xcode"
 	echo "Carthage - carthage bootstrap"
 	echo "update - carthage update"
+	ceho "clean - clean the build"
+	echo "test - run unit tests"
 
 # clean everything including Carthage
 .PHONY: clean_all
-clean_all:
+clean_all: clean
 	@rm -rf Carthage
 
 # xcode version check
@@ -49,3 +51,22 @@ Carthage: xcode_check
 update: xcode_check
 	$(call carthage,update)
 	carting update
+
+.PHONY: clean
+clean:
+xcodebuild \
+	-project TheCollector.xcodeproj \
+	-scheme TheCollector \
+	-derivedDataPath derivedData \
+	-configuration Debug \
+	clean
+
+.PHONY: test
+test: Carthage
+	xcodebuild \
+	-project TheCollector.xcodeproj \
+	-scheme TheCollector \
+	-derivedDataPath derivedData \
+	-configuration Debug \
+	-destination "platform=iOS Simulator,name=iPhone X" \
+	test

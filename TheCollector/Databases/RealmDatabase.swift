@@ -105,8 +105,12 @@ extension RealmDatabase: DatabaseProtocol {
     func save(category: Category) -> SignalProducer<Void, Never> {
         return SignalProducer { observer, _ in
             let obj = category.toDSO()
-            try? self.realm.write {
-                self.realm.add(obj, update: Realm.UpdatePolicy.all)
+            do {
+                try self.realm.write {
+                    self.realm.add(obj, update: Realm.UpdatePolicy.all)
+                }
+            } catch {
+                print(error)
             }
             observer.send(value: ())
             observer.sendCompleted()
@@ -115,8 +119,12 @@ extension RealmDatabase: DatabaseProtocol {
     func save(item: Item) -> SignalProducer<Void, Never> {
         return SignalProducer { observer, _ in
             let obj = item.toDSO()
-            try? self.realm.write {
-                self.realm.add(obj, update: Realm.UpdatePolicy.all)
+            do {
+                try self.realm.write {
+                    self.realm.add(obj, update: Realm.UpdatePolicy.all)
+                }
+            } catch {
+                print(error)
             }
             observer.send(value: ())
             observer.sendCompleted()
@@ -126,8 +134,12 @@ extension RealmDatabase: DatabaseProtocol {
     func deleteCategory(id: UUID) -> SignalProducer<Void, Never> {
         return SignalProducer { observer, _ in
             if let obj = self.realm.object(ofType: CategoryDSO.self, forPrimaryKey: id.uuidString) {
-                try? self.realm.write {
-                    self.realm.delete(obj)
+                do {
+                    try self.realm.write {
+                        self.realm.delete(obj)
+                    }
+                } catch {
+                    print(error)
                 }
             }
             observer.send(value: ())
@@ -138,8 +150,12 @@ extension RealmDatabase: DatabaseProtocol {
     func deleteItem(id: UUID) -> SignalProducer<Void, Never> {
         return SignalProducer { observer, _ in
             if let obj = self.realm.object(ofType: ItemDSO.self, forPrimaryKey: id.uuidString) {
-                try? self.realm.write {
-                    self.realm.delete(obj)
+                do {
+                    try self.realm.write {
+                        self.realm.delete(obj)
+                    }
+                } catch {
+                    print(error)
                 }
             }
             observer.send(value: ())

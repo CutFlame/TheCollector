@@ -8,6 +8,7 @@
 
 @testable import TheCollector
 import XCTest
+import ReactiveSwift
 
 class TheCollectorTests: XCTestCase {
 
@@ -31,4 +32,36 @@ class TheCollectorTests: XCTestCase {
         }
     }
 
+}
+
+class EditItemViewModelTests: XCTestCase {
+    let categoryID = UUID()
+    let database = InMemoryDatabase()
+
+    func testConstructor() {
+        let category = Category.init(categoryID: categoryID, name: "Test Category", itemIDs: [])
+        let instance = EditItemViewModel(category: category, item: nil, database: database)
+        XCTAssertNotNil(instance)
+    }
+
+    func testCannotInitiallySave() {
+        let category = Category.init(categoryID: categoryID, name: "Test Category", itemIDs: [])
+        let instance = EditItemViewModel(category: category, item: nil, database: database)
+        XCTAssert(instance.saveAction.isEnabled.value == false)
+    }
+
+    func testSaveIsEnabled() {
+        let category = Category.init(categoryID: categoryID, name: "Test Category", itemIDs: [])
+        let instance = EditItemViewModel(category: category, item: nil, database: database)
+        instance.title.value = "Test Title"
+        instance.description.value = "Test Description"
+        XCTAssert(instance.saveAction.isEnabled.value)
+    }
+    func testSave() {
+        let category = Category.init(categoryID: categoryID, name: "Test Category", itemIDs: [])
+        let instance = EditItemViewModel(category: category, item: nil, database: database)
+        instance.title.value = "Test Title"
+        instance.description.value = "Test Description"
+        instance.saveAction
+    }
 }

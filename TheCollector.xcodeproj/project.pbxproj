@@ -38,6 +38,10 @@
 		27EC8D4F22E8C4770013C2AB /* EditItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EC8D4E22E8C4770013C2AB /* EditItemViewModel.swift */; };
 		27EC8D5222E8CAEA0013C2AB /* RealmDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EC8D5122E8CAEA0013C2AB /* RealmDatabase.swift */; };
 		27EC8D5422E8CB090013C2AB /* InMemoryDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EC8D5322E8CB090013C2AB /* InMemoryDatabase.swift */; };
+		27EC8D5622E8D1820013C2AB /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27EC8D1C22E62C570013C2AB /* RealmSwift.framework */; };
+		27EC8D5722E8D1820013C2AB /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27EC8D1A22E62C530013C2AB /* Realm.framework */; };
+		27EC8D5822E8D1820013C2AB /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27EC8D1822E62C500013C2AB /* ReactiveSwift.framework */; };
+		27EC8D5922E8D1820013C2AB /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27EC8D1622E62C4D0013C2AB /* ReactiveCocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +64,7 @@
 		27EC8D0022E25F8B0013C2AB /* TheCollectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheCollectorTests.swift; sourceTree = "<group>"; };
 		27EC8D0222E25F8B0013C2AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27EC8D0B22E625A60013C2AB /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
-		27EC8D0D22E625DE0013C2AB /* makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
+		27EC8D0D22E625DE0013C2AB /* makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; usesTabs = 1; };
 		27EC8D0F22E6267A0013C2AB /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		27EC8D1122E626800013C2AB /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		27EC8D1322E626880013C2AB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -109,6 +113,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27EC8D5622E8D1820013C2AB /* RealmSwift.framework in Frameworks */,
+				27EC8D5722E8D1820013C2AB /* Realm.framework in Frameworks */,
+				27EC8D5822E8D1820013C2AB /* ReactiveSwift.framework in Frameworks */,
+				27EC8D5922E8D1820013C2AB /* ReactiveCocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +309,7 @@
 				27EC8CF822E25F8B0013C2AB /* Sources */,
 				27EC8CF922E25F8B0013C2AB /* Frameworks */,
 				27EC8CFA22E25F8B0013C2AB /* Resources */,
+				27EC8D5A22E8D1A10013C2AB /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -370,6 +379,27 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		27EC8D5A22E8D1A10013C2AB /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"$(SRCROOT)/Carthage/xcfilelists/TheCollector-inputPaths.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = Carthage;
+			outputFileListPaths = (
+				"$(SRCROOT)/Carthage/xcfilelists/TheCollector-outputPaths.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+			showEnvVarsInLog = 0;
+		};
 		BSR3AEE6N0QANAP2XE5CCYRM /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -578,6 +608,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YX9B28R39R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -599,6 +630,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YX9B28R39R;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -621,6 +653,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YX9B28R39R;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = TheCollectorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -641,6 +678,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YX9B28R39R;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = TheCollectorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
