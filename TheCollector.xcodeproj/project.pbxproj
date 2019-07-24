@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27C5D73722E8DB0400718E2C /* EditItemViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C5D73622E8DB0400718E2C /* EditItemViewModelTests.swift */; };
 		27EC8CEC22E25F890013C2AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EC8CEB22E25F890013C2AB /* AppDelegate.swift */; };
 		27EC8CF322E25F8B0013C2AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27EC8CF222E25F8B0013C2AB /* Assets.xcassets */; };
 		27EC8CF622E25F8B0013C2AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27EC8CF422E25F8B0013C2AB /* LaunchScreen.storyboard */; };
@@ -55,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		27C5D73622E8DB0400718E2C /* EditItemViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditItemViewModelTests.swift; path = ../../../../../System/Volumes/Data/Users/mike/GitHub/TheCollector/TheCollectorTests/EditItemViewModelTests.swift; sourceTree = "<group>"; };
 		27EC8CE822E25F890013C2AB /* TheCollector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheCollector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27EC8CEB22E25F890013C2AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		27EC8CF222E25F8B0013C2AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			children = (
 				27EC8D0022E25F8B0013C2AB /* TheCollectorTests.swift */,
 				27EC8D0222E25F8B0013C2AB /* Info.plist */,
+				27C5D73622E8DB0400718E2C /* EditItemViewModelTests.swift */,
 			);
 			path = TheCollectorTests;
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27EC8D0122E25F8B0013C2AB /* TheCollectorTests.swift in Sources */,
+				27C5D73722E8DB0400718E2C /* EditItemViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

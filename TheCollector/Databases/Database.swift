@@ -21,5 +21,5 @@ protocol DatabaseProtocol {
 }
 
 enum Database {
-    static let shared: DatabaseProtocol = RealmDatabase()
+    static var shared: DatabaseProtocol = RealmDatabase()
 }
