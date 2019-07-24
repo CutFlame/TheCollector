@@ -15,6 +15,10 @@ class AppCoordinator: Coordinator, CoordinatorProtocol {
         self.window = window
     }
 
+    var navigationController: UINavigationController {
+        return self.window.rootViewController as! UINavigationController
+    }
+
     func start() {
         showLaunchScreen()
 
@@ -36,6 +40,9 @@ class AppCoordinator: Coordinator, CoordinatorProtocol {
         viewModel.editCategoryAction.values.observeValues { [weak self] category in
             self?.showEditCategoryScreen(category: category)
         }
+        viewModel.selectCategoryAction.values.observeValues { [weak self] category in
+            self?.showItemListScreen(category: category)
+        }
         let viewController = CategoriesViewController()
         viewController.viewModel = viewModel
         let navController = UINavigationController(rootViewController: viewController)
@@ -52,5 +59,37 @@ class AppCoordinator: Coordinator, CoordinatorProtocol {
         viewController.viewModel = viewModel
         let navController = UINavigationController(rootViewController: viewController)
         window.rootViewController?.present(navController, animated: true, completion: nil)
+    }
+
+    func showItemListScreen(category: Category) {
+        let viewModel = ItemsViewModel(category: category)
+        viewModel.addItemAction.values.observeValues { [weak self] in
+            self?.showEditItemScreen(category: category)
+        }
+        viewModel.editItemAction.values.observeValues { [weak self] item in
+            self?.showEditItemScreen(category: category, item: item)
+        }
+        viewModel.selectItemAction.values.observeValues { [weak self] item in
+            //self?.showItemsScreen(item: item)
+        }
+        let viewController = ItemsViewController()
+        viewController.viewModel = viewModel
+        navigationController.pushViewController(viewController, animated: true)
+    }
+
+    func showEditItemScreen(category: Category, item: Item? = nil) {
+        let viewModel = EditItemViewModel(category: category, item: item)
+        viewModel.saveAction.values.merge(with: viewModel.cancelAction.values)
+            .observeValues { [weak self] in
+                self?.window.rootViewController?.dismiss(animated: true, completion: nil)
+        }
+        let viewController = EditItemViewController()
+        viewController.viewModel = viewModel
+        let navController = UINavigationController(rootViewController: viewController)
+        window.rootViewController?.present(navController, animated: true, completion: nil)
+    }
+
+    func showItemScreen(item: Item) {
+        
     }
 }
