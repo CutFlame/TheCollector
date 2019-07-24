@@ -23,9 +23,11 @@ class EditItemViewModel {
 
     let title = MutableProperty<String?>(nil)
     let description = MutableProperty<String?>(nil)
-    let rating = MutableProperty<UInt8>(0)
-    private lazy var formValid = title.map({ $0 != nil && !$0!.isEmpty })
-        .combineLatest(with: description.map({ $0 != nil && !$0!.isEmpty }))
+    let rating = MutableProperty<UInt8>(3)
+    private lazy var formValid =
+        Property.combineLatest(
+            title.map({ $0 != nil && !$0!.isEmpty }),
+            description.map({ $0 != nil && !$0!.isEmpty }))
         .map { (titleValid, descriptionValid) in
             return titleValid && descriptionValid
     }

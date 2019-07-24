@@ -25,7 +25,7 @@ class EditCategoryViewModel {
         let newCategory = Category(
             categoryID: self.category?.categoryID ?? UUID(),
             name: self.name.value ?? "Unnamed Category",
-            itemIDs: [])
+            itemIDs: self.category?.itemIDs ?? [])
         return database.save(category: newCategory)
     }
     let cancelAction = Action<Void, Void, Never>(execute: { SignalProducer(value: ()) })

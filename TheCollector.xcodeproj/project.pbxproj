@@ -36,6 +36,8 @@
 		27EC8D4B22E8C3FC0013C2AB /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EC8D4A22E8C3FC0013C2AB /* ItemCell.swift */; };
 		27EC8D4D22E8C4530013C2AB /* EditItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EC8D4C22E8C4530013C2AB /* EditItemView.swift */; };
 		27EC8D4F22E8C4770013C2AB /* EditItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EC8D4E22E8C4770013C2AB /* EditItemViewModel.swift */; };
+		27EC8D5222E8CAEA0013C2AB /* RealmDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EC8D5122E8CAEA0013C2AB /* RealmDatabase.swift */; };
+		27EC8D5422E8CB090013C2AB /* InMemoryDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EC8D5322E8CB090013C2AB /* InMemoryDatabase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +89,8 @@
 		27EC8D4A22E8C3FC0013C2AB /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		27EC8D4C22E8C4530013C2AB /* EditItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemView.swift; sourceTree = "<group>"; };
 		27EC8D4E22E8C4770013C2AB /* EditItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItemViewModel.swift; sourceTree = "<group>"; };
+		27EC8D5122E8CAEA0013C2AB /* RealmDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDatabase.swift; sourceTree = "<group>"; };
+		27EC8D5322E8CB090013C2AB /* InMemoryDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryDatabase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,12 +143,11 @@
 			isa = PBXGroup;
 			children = (
 				27EC8CF722E25F8B0013C2AB /* Info.plist */,
-				27EC8D3422E645470013C2AB /* AppCoordinator.swift */,
-				27EC8CEB22E25F890013C2AB /* AppDelegate.swift */,
-				27EC8D3622E6456C0013C2AB /* Coordinator.swift */,
-				27EC8D2322E644170013C2AB /* Database.swift */,
-				27EC8CF222E25F8B0013C2AB /* Assets.xcassets */,
 				27EC8CF422E25F8B0013C2AB /* LaunchScreen.storyboard */,
+				27EC8CEB22E25F890013C2AB /* AppDelegate.swift */,
+				27EC8CF222E25F8B0013C2AB /* Assets.xcassets */,
+				27EC8D5522E8CCB20013C2AB /* Coordinators */,
+				27EC8D5022E8CAD30013C2AB /* Databases */,
 				27EC8D3822E6459C0013C2AB /* Models */,
 				27EC8D2022E643D90013C2AB /* Views */,
 			);
@@ -249,6 +252,25 @@
 				27EC8D4E22E8C4770013C2AB /* EditItemViewModel.swift */,
 			);
 			path = EditItemScreen;
+			sourceTree = "<group>";
+		};
+		27EC8D5022E8CAD30013C2AB /* Databases */ = {
+			isa = PBXGroup;
+			children = (
+				27EC8D2322E644170013C2AB /* Database.swift */,
+				27EC8D5122E8CAEA0013C2AB /* RealmDatabase.swift */,
+				27EC8D5322E8CB090013C2AB /* InMemoryDatabase.swift */,
+			);
+			path = Databases;
+			sourceTree = "<group>";
+		};
+		27EC8D5522E8CCB20013C2AB /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				27EC8D3622E6456C0013C2AB /* Coordinator.swift */,
+				27EC8D3422E645470013C2AB /* AppCoordinator.swift */,
+			);
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -394,9 +416,11 @@
 				27EC8D2222E643EA0013C2AB /* LaunchViewController.swift in Sources */,
 				27EC8D4422E657440013C2AB /* ItemsViewController.swift in Sources */,
 				27EC8D4122E6566E0013C2AB /* ItemDSO.swift in Sources */,
+				27EC8D5222E8CAEA0013C2AB /* RealmDatabase.swift in Sources */,
 				27EC8D3322E645250013C2AB /* EditCategoryViewModel.swift in Sources */,
 				27EC8D3A22E645AA0013C2AB /* Category.swift in Sources */,
 				27EC8D4622E8B8580013C2AB /* ItemsViewModel.swift in Sources */,
+				27EC8D5422E8CB090013C2AB /* InMemoryDatabase.swift in Sources */,
 				27EC8D4D22E8C4530013C2AB /* EditItemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

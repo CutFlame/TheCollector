@@ -1,94 +1,15 @@
 //
-//  Database.swift
+//  RealmDatabase.swift
 //  TheCollector
 //
-//  Created by Michael Holt on 7/22/19.
+//  Created by Michael Holt on 7/24/19.
 //  Copyright © 2019 Michael Holt. All rights reserved.
 //
 
 import ReactiveSwift
 import RealmSwift
 
-protocol DatabaseProtocol {
-    func getCategories() -> SignalProducer<[Category], Never>
-    func getCategory(id: UUID) -> SignalProducer<Category?, Never>
-    func getItems(for categoryID: UUID) -> SignalProducer<[Item], Never>
-    func getItem(id: UUID) -> SignalProducer<Item?, Never>
-    func save(category: Category) -> SignalProducer<Void, Never>
-    func save(item: Item) -> SignalProducer<Void, Never>
-    func deleteCategory(id: UUID) -> SignalProducer<Void, Never>
-    func deleteItem(id: UUID) -> SignalProducer<Void, Never>
-    func deleteAll() -> SignalProducer<Void, Never>
-}
-
-enum Database {
-    static let shared: DatabaseProtocol = InMemoryDatabase()
-}
-
-class InMemoryDatabase: DatabaseProtocol {
-    private var categories = [UUID: Category]()
-    private var items = [UUID: Item]()
-
-    func getCategories() -> SignalProducer<[Category], Never> {
-        return SignalProducer(value: Array(categories.values))
-    }
-
-    func getCategory(id: UUID) -> SignalProducer<Category?, Never> {
-        return SignalProducer(value: categories[id])
-    }
-
-    func getItems(for categoryID: UUID) -> SignalProducer<[Item], Never> {
-        return SignalProducer(value: items.values.filter({ $0.parentID == categoryID }))
-    }
-
-    func getItem(id: UUID) -> SignalProducer<Item?, Never> {
-        return SignalProducer(value: items[id])
-    }
-
-    func save(category: Category) -> SignalProducer<Void, Never> {
-        return SignalProducer { [weak self] in
-            self?.categories[category.categoryID] = category
-        }
-    }
-    func save(item: Item) -> SignalProducer<Void, Never> {
-        return SignalProducer { [weak self] in
-            self?.items[item.itemID] = item
-        }
-    }
-
-    func deleteCategory(id: UUID) -> SignalProducer<Void, Never> {
-        return SignalProducer({ [weak self] observer, lifetime in
-            //Cascade delete the items
-            if let category = self?.categories[id] {
-                let itemIDs = category.itemIDs
-                itemIDs.forEach { self?.items.removeValue(forKey: $0) }
-            }
-
-            //delete the category
-            self?.categories.removeValue(forKey: id)
-            observer.send(value: ())
-            observer.sendCompleted()
-        })
-    }
-
-    func deleteItem(id: UUID) -> SignalProducer<Void, Never> {
-        return SignalProducer { [weak self] in
-            self?.items.removeValue(forKey: id)
-        }
-    }
-
-    func deleteAll() -> SignalProducer<Void, Never> {
-        return SignalProducer { [weak self] observer, lifetime in
-            self?.items.removeAll()
-            self?.categories.removeAll()
-            observer.send(value: ())
-            observer.sendCompleted()
-        }
-    }
-}
-
-/*
-class RealmDatabase { //}: DatabaseProtocol {
+class RealmDatabase {
     private let realm: Realm
 
     static func deleteRealm(at realmURL: URL) {
@@ -146,18 +67,54 @@ class RealmDatabase { //}: DatabaseProtocol {
             .appendingPathComponent("database.realm")
         return configuration
     }()
+}
 
+extension RealmDatabase: DatabaseProtocol {
     func getCategories() -> SignalProducer<[Category], Never> {
         return SignalProducer { observer, _ in
-            let results = Array(self.realm.objects(CategoryDSO.self).map(Category.init))
-            observer.send(value: results)
+            let results = self.realm.objects(CategoryDSO.self).map(Category.init)
+            observer.send(value: Array(results))
             observer.sendCompleted()
         }
     }
 
-    func saveCategory(category: Category) -> SignalProducer<Void, Never> {
+    func getCategory(id: UUID) -> SignalProducer<Category?, Never> {
+        return SignalProducer { observer, _ in
+            let result = self.realm.object(ofType: CategoryDSO.self, forPrimaryKey: id.uuidString).map(Category.init)
+            observer.send(value: result)
+            observer.sendCompleted()
+        }
+    }
+
+    func getItems(for categoryID: UUID) -> SignalProducer<[Item], Never> {
+        return SignalProducer { observer, _ in
+            let results = self.realm.objects(ItemDSO.self).filter({ $0.parentID == categoryID }).map(Item.init)
+            observer.send(value: Array(results))
+            observer.sendCompleted()
+        }
+    }
+
+    func getItem(id: UUID) -> SignalProducer<Item?, Never> {
+        return SignalProducer { observer, _ in
+            let result = self.realm.object(ofType: ItemDSO.self, forPrimaryKey: id.uuidString).map(Item.init)
+            observer.send(value: result)
+            observer.sendCompleted()
+        }
+    }
+
+    func save(category: Category) -> SignalProducer<Void, Never> {
         return SignalProducer { observer, _ in
             let obj = category.toDSO()
+            try? self.realm.write {
+                self.realm.add(obj, update: Realm.UpdatePolicy.all)
+            }
+            observer.send(value: ())
+            observer.sendCompleted()
+        }
+    }
+    func save(item: Item) -> SignalProducer<Void, Never> {
+        return SignalProducer { observer, _ in
+            let obj = item.toDSO()
             try? self.realm.write {
                 self.realm.add(obj, update: Realm.UpdatePolicy.all)
             }
@@ -178,13 +135,26 @@ class RealmDatabase { //}: DatabaseProtocol {
         }
     }
 
-    func getItems(forCategoryID id: UUID) -> SignalProducer<[Item], Never> {
+    func deleteItem(id: UUID) -> SignalProducer<Void, Never> {
         return SignalProducer { observer, _ in
-            let results = self.realm.object(ofType: CategoryDSO.self, forPrimaryKey: id.uuidString).map(Category.init)
-            observer.send(value: results?.items ?? [])
+            if let obj = self.realm.object(ofType: ItemDSO.self, forPrimaryKey: id.uuidString) {
+                try? self.realm.write {
+                    self.realm.delete(obj)
+                }
+            }
+            observer.send(value: ())
             observer.sendCompleted()
         }
     }
 
+    func deleteAll() -> SignalProducer<Void, Never> {
+        return SignalProducer { observer, _ in
+            self.realm.deleteAll()
+            observer.send(value: ())
+            observer.sendCompleted()
+        }
+
+    }
+
 }
-*/
+

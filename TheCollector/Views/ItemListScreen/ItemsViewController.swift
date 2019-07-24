@@ -61,7 +61,7 @@ class ItemsViewController: UITableViewController {
             let actionPerformed = true
             completion(actionPerformed)
         })
-        let config = UISwipeActionsConfiguration(actions: [editAction, deleteAction])
+        let config = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
         return config
     }
 
