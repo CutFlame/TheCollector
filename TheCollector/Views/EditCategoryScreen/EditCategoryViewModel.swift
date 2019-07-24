@@ -23,10 +23,10 @@ class EditCategoryViewModel {
     lazy private(set) var saveAction = Action<Void, Void, Never>(enabledIf: formValid, execute: self.saveSignal)
     private func saveSignal() -> SignalProducer<Void, Never> {
         let newCategory = Category(
-            id: self.category?.id ?? UUID(),
+            categoryID: self.category?.categoryID ?? UUID(),
             name: self.name.value ?? "Unnamed Category",
-            items: self.category?.items ?? [])
-        return database.saveCategory(category: newCategory)
+            itemIDs: [])
+        return database.save(category: newCategory)
     }
     let cancelAction = Action<Void, Void, Never>(execute: { SignalProducer(value: ()) })
 }

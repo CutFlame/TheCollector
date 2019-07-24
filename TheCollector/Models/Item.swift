@@ -9,8 +9,9 @@
 import Foundation
 
 struct Item {
-    let id: UUID
+    let itemID: UUID
     let title: String
     let description: String
     let rating: UInt8
+    let parentID: UUID
 }

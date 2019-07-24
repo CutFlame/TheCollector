@@ -47,7 +47,7 @@ class CategoriesViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
         let category = viewModel.categories.value[indexPath.row]
         cell.textLabel?.text = category.name
-        cell.detailTextLabel?.text = "\(category.items.count) items"
+        cell.detailTextLabel?.text = "\(category.itemIDs.count) items"
         return cell
     }
 

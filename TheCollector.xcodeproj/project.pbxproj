@@ -30,6 +30,7 @@
 		27EC8D3C22E645BF0013C2AB /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EC8D3B22E645BF0013C2AB /* Item.swift */; };
 		27EC8D3F22E656500013C2AB /* CategoryDSO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EC8D3E22E656500013C2AB /* CategoryDSO.swift */; };
 		27EC8D4122E6566E0013C2AB /* ItemDSO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EC8D4022E6566E0013C2AB /* ItemDSO.swift */; };
+		27EC8D4422E657440013C2AB /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EC8D4322E657440013C2AB /* ItemsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		27EC8D3B22E645BF0013C2AB /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		27EC8D3E22E656500013C2AB /* CategoryDSO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDSO.swift; sourceTree = "<group>"; };
 		27EC8D4022E6566E0013C2AB /* ItemDSO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDSO.swift; sourceTree = "<group>"; };
+		27EC8D4322E657440013C2AB /* ItemsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 		27EC8D2022E643D90013C2AB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				27EC8D4222E657280013C2AB /* ItemsScreen */,
 				27EC8D2622E644520013C2AB /* CategoriesScreen */,
 				27EC8D2D22E644CE0013C2AB /* EditCategoryScreen */,
 				27EC8D2522E644450013C2AB /* LaunchScreen */,
@@ -215,6 +218,14 @@
 				27EC8D4022E6566E0013C2AB /* ItemDSO.swift */,
 			);
 			path = StorageObjects;
+			sourceTree = "<group>";
+		};
+		27EC8D4222E657280013C2AB /* ItemsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				27EC8D4322E657440013C2AB /* ItemsViewController.swift */,
+			);
+			path = ItemsScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -355,6 +366,7 @@
 				27EC8D3F22E656500013C2AB /* CategoryDSO.swift in Sources */,
 				27EC8D2C22E644AC0013C2AB /* CategoriesViewModel.swift in Sources */,
 				27EC8D2222E643EA0013C2AB /* LaunchViewController.swift in Sources */,
+				27EC8D4422E657440013C2AB /* ItemsViewController.swift in Sources */,
 				27EC8D4122E6566E0013C2AB /* ItemDSO.swift in Sources */,
 				27EC8D3322E645250013C2AB /* EditCategoryViewModel.swift in Sources */,
 				27EC8D3A22E645AA0013C2AB /* Category.swift in Sources */,

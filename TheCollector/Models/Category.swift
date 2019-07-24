@@ -9,7 +9,7 @@
 import Foundation
 
 struct Category {
-    let id: UUID
+    let categoryID: UUID
     let name: String
-    let items: [Item]
+    let itemIDs: [UUID]
 }

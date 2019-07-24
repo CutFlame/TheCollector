@@ -29,11 +29,11 @@ class CategoriesViewModel {
 
     lazy private(set) var deleteCategoryAction = Action<Category, Void, Never>(execute: self.deleteCategorySignal)
     private func deleteCategorySignal(category: Category) -> SignalProducer<Void, Never> {
-        let id = category.id
+        let id = category.categoryID
         return database.deleteCategory(id: id)
             .on { [weak self] in
                 guard let self = self else { return }
-                self.categories.value = self.categories.value.filter({ $0.id != id })
+                self.categories.value = self.categories.value.filter({ $0.categoryID != id })
             }
             .map { _ in }
     }
